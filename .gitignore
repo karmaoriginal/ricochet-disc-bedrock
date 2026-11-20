@@ -1,4 +1,5 @@
 *.mcaddon
+!dist/*.mcaddon
 *.mcpack
 *.zip
 .DS_Store
