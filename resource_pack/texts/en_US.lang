@@ -1,5 +1,10 @@
-item.rd:ricochet_disc=Ricochet Disc
-item.rd:ricochet_disc.name=Ricochet Disc
+item.rd:disc_wood=Wooden Disc
+item.rd:disc_stone=Stone Disc
+item.rd:disc_iron=Iron Disc
+item.rd:disc_gold=Golden Disc
+item.rd:disc_diamond=Diamond Disc
+item.rd:disc_netherite=Netherite Disc
+item.rd:disc_guide=Disc Guide
 entity.rd:ricochet_disc.name=Ricochet Disc
 pack.name=Ricochet Disc RP
-pack.description=16x16 textures and a simple disc model.
+pack.description=16x16 textures for six disc materials, dyed variants and the guide item.

@@ -1,0 +1,53 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "rd:disc_diamond",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:display_name": {
+        "value": "Disco de Diamante"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "rd:disc_diamond",
+          "dyed": "rd:disc_diamond_dyed"
+        }
+      },
+      "minecraft:dyeable": {
+        "default_color": "#5ee0d4"
+      },
+      "minecraft:durability": {
+        "max_durability": 780
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["minecraft:diamond"],
+            "repair_amount": 195
+          }
+        ]
+      },
+      "minecraft:cooldown": {
+        "category": "rd_disc",
+        "duration": 0.8
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": true,
+        "launch_power_scale": 1.0,
+        "max_draw_duration": 0.5,
+        "min_draw_duration": 0.15,
+        "scale_power_by_draw_duration": true
+      },
+      "minecraft:projectile": {
+        "projectile_entity": "rd:ricochet_disc"
+      }
+    }
+  }
+}

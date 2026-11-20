@@ -1,14 +1,18 @@
 import { world, system, Direction, EntityDamageCause } from "@minecraft/server";
 import { CONFIG } from "./config.js";
-import { discs } from "./disc.js";
+import {
+  discs,
+  materialByKey,
+  startReturn,
+} from "./disc.js";
 import {
   parseEnchants,
+  stat,
   extraBounces,
   restBonus,
   bonusDamage,
   armorPenStat,
   applyHitEnchants,
-  hasRetorno,
 } from "./enchants.js";
 import {
   canDamage,
@@ -153,10 +157,15 @@ function relaunch(old, dim, loc, vel, info) {
   try {
     neu.setDynamicProperty(DP.owner, info.owner);
     neu.setDynamicProperty(DP.bounces, info.bounces);
-    neu.setDynamicProperty(DP.enchants, old.isValid ? old.getDynamicProperty(DP.enchants) ?? "{}" : "{}");
+    neu.setDynamicProperty(
+      DP.enchants,
+      old.isValid ? old.getDynamicProperty(DP.enchants) ?? "{}" : "{}"
+    );
     neu.setDynamicProperty(DP.thrownAt, info.born);
     neu.setDynamicProperty(DP.serial, info.serial);
     neu.setDynamicProperty(DP.returning, false);
+    neu.setDynamicProperty(DP.material, info.material);
+    neu.setDynamicProperty(DP.look, info.look);
   } catch {
     /* DP opcional */
   }
@@ -178,24 +187,40 @@ function relaunch(old, dim, loc, vel, info) {
 
 function enchOf(e, info) {
   try {
-    return parseEnchants(e?.getDynamicProperty?.(DP.enchants) ?? info?.ench);
+    return parseEnchants(e?.getDynamicProperty?.(DP.enchants) ?? info?.enchants);
   } catch {
     return {};
   }
 }
 
-export function calcDamage(bounces, ench = {}) {
+function matOf(e, info) {
+  const key = e?.getDynamicProperty?.(DP.material) ?? info?.material;
+  return materialByKey(key);
+}
+
+// Daño por rebote sobre el daño base del material.
+export function calcDamage(bounces, ench = {}, mat) {
+  const m = mat ?? materialByKey(CONFIG.defaultMaterial);
   const mul = Math.min(
     CONFIG.damage.bounceMulCap,
     Math.pow(CONFIG.damage.perBounceMul, bounces)
   );
-  let dmg = CONFIG.damage.base * mul + bonusDamage(ench);
+  let dmg = m.damage * mul + bonusDamage(ench);
   dmg *= 1 + armorPenStat(ench);
-  return Math.min(CONFIG.damage.maxHit, dmg);
+  return Math.min(m.maxHit, dmg);
 }
 
 function maxBounces(ench) {
   return CONFIG.bounce.max + extraBounces(ench);
+}
+
+function restitutionOf(mat, ench) {
+  return Math.min(0.98, mat.restitution + restBonus(ench));
+}
+
+function returnAfter(ench) {
+  const early = Math.floor(stat(ench, "earlyBounce"));
+  return Math.max(1, CONFIG.return.afterBounces - early);
 }
 
 world.afterEvents.projectileHitBlock.subscribe((ev) => {
@@ -230,18 +255,20 @@ world.afterEvents.projectileHitBlock.subscribe((ev) => {
 
     const dest = nudgeOut(dim, loc, n);
     const ench = enchOf(e, live);
+    const mat = matOf(e, live);
     const next = live.bounces + 1;
-    const nextSpeed = speed * (CONFIG.bounce.restitution + restBonus(ench));
+    const nextSpeed = speed * restitutionOf(mat, ench);
 
+    // Agotado: se frena y arranca el regreso tipo frisbee.
     if (next > maxBounces(ench) || nextSpeed < CONFIG.bounce.minSpeed) {
       live.speed = 0;
-      if (hasRetorno(ench)) live.returning = true;
       if (e?.isValid) {
         try {
           e.tryTeleport(dest, { keepVelocity: false });
         } catch {
           /* queda donde está */
         }
+        startReturn(e, live);
       }
       return;
     }
@@ -259,6 +286,9 @@ world.afterEvents.projectileHitBlock.subscribe((ev) => {
     }
     fxParticle(dim, CONFIG.fx.bounceParticle, dest);
     fxSound(dim, CONFIG.fx.bounceSound, dest);
+
+    // Ya rebotó lo suficiente: vuelve al dueño en vez de seguir.
+    if (next >= returnAfter(ench)) startReturn(body, live);
   });
 });
 
@@ -304,8 +334,9 @@ world.afterEvents.projectileHitEntity.subscribe((ev) => {
   if (clippedHit(ev.dimension, ev.location, hvPre)) return;
 
   const ench = enchOf(proj, info);
+  const mat = matOf(proj, info);
   const pen = CONFIG.pvp.armorPenBase + armorPenStat(ench);
-  let dmg = applyArmor(target, calcDamage(info.bounces, ench), pen);
+  let dmg = applyArmor(target, calcDamage(info.bounces, ench, mat), pen);
   if (attacker) dmg *= noteCombo(attacker.id, now);
   const cause =
     EntityDamageCause[CONFIG.damage.cause] ?? EntityDamageCause.entityAttack;
@@ -364,6 +395,31 @@ world.afterEvents.projectileHitEntity.subscribe((ev) => {
 });
 
 export function tickBounce(now) {
+  // Lava: netherite vuelve, el resto se pierde.
+  for (const [id, info] of discs) {
+    const e = world.getEntity(id);
+    if (!e?.isValid) continue;
+    let block;
+    try {
+      block = e.dimension.getBlock(e.location);
+    } catch {
+      continue;
+    }
+    if (!block) continue;
+    let lava = false;
+    try {
+      lava = block.typeId === "minecraft:lava" || block.typeId === "minecraft:flowing_lava";
+    } catch {
+      lava = false;
+    }
+    if (!lava) continue;
+    if (materialByKey(info.material).heatproof) startReturn(e, info);
+    else {
+      e.remove();
+      info.lost = true;
+    }
+  }
+
   if (iframes.size < 32) return;
   const keep = CONFIG.pvp.hitIframesTicks * 4;
   for (const [k, t] of iframes) {

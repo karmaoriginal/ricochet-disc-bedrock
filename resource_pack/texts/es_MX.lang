@@ -1,5 +1,10 @@
-item.rd:ricochet_disc=Disco de rebote
-item.rd:ricochet_disc.name=Disco de rebote
+item.rd:disc_wood=Disco de Madera
+item.rd:disc_stone=Disco de Piedra
+item.rd:disc_iron=Disco de Hierro
+item.rd:disc_gold=Disco de Oro
+item.rd:disc_diamond=Disco de Diamante
+item.rd:disc_netherite=Disco de Netherite
+item.rd:disc_guide=Guía del Disco
 entity.rd:ricochet_disc.name=Disco de rebote
 pack.name=Disco Rebote RP
-pack.description=Texturas 16x16 y modelo simple del disco.
+pack.description=Texturas 16x16 de los seis materiales, variantes teñidas y la guía.

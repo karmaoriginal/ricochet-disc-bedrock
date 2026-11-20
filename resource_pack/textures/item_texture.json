@@ -2,8 +2,44 @@
   "resource_pack_name": "disco_rebote",
   "texture_name": "atlas.items",
   "texture_data": {
-    "rd:ricochet_disc": {
-      "textures": "textures/items/ricochet_disc"
+    "rd:disc_wood": {
+      "textures": "textures/items/disc_wood"
+    },
+    "rd:disc_wood_dyed": {
+      "textures": "textures/items/disc_wood_dyed"
+    },
+    "rd:disc_stone": {
+      "textures": "textures/items/disc_stone"
+    },
+    "rd:disc_stone_dyed": {
+      "textures": "textures/items/disc_stone_dyed"
+    },
+    "rd:disc_iron": {
+      "textures": "textures/items/disc_iron"
+    },
+    "rd:disc_iron_dyed": {
+      "textures": "textures/items/disc_iron_dyed"
+    },
+    "rd:disc_gold": {
+      "textures": "textures/items/disc_gold"
+    },
+    "rd:disc_gold_dyed": {
+      "textures": "textures/items/disc_gold_dyed"
+    },
+    "rd:disc_diamond": {
+      "textures": "textures/items/disc_diamond"
+    },
+    "rd:disc_diamond_dyed": {
+      "textures": "textures/items/disc_diamond_dyed"
+    },
+    "rd:disc_netherite": {
+      "textures": "textures/items/disc_netherite"
+    },
+    "rd:disc_netherite_dyed": {
+      "textures": "textures/items/disc_netherite_dyed"
+    },
+    "rd:disc_guide": {
+      "textures": "textures/items/disc_guide"
     }
   }
 }

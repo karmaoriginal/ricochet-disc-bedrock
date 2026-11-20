@@ -5,6 +5,7 @@ import { tickBounce } from "./bounce.js";
 import { tickEnchants } from "./enchants.js";
 import { tickPvp } from "./pvp.js";
 import "./ui.js";
+import "./guide.js";
 
 // Un solo intervalo global (2–4 ticks).
 system.runInterval(() => {

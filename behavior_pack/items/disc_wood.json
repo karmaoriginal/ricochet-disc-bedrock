@@ -1,0 +1,63 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "rd:disc_wood",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:display_name": {
+        "value": "Disco de Madera"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "rd:disc_wood",
+          "dyed": "rd:disc_wood_dyed"
+        }
+      },
+      "minecraft:dyeable": {
+        "default_color": "#8b6a3f"
+      },
+      "minecraft:durability": {
+        "max_durability": 90
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:oak_planks",
+              "minecraft:spruce_planks",
+              "minecraft:birch_planks",
+              "minecraft:jungle_planks",
+              "minecraft:acacia_planks",
+              "minecraft:dark_oak_planks",
+              "minecraft:mangrove_planks",
+              "minecraft:cherry_planks",
+              "minecraft:bamboo_planks"
+            ],
+            "repair_amount": 22
+          }
+        ]
+      },
+      "minecraft:cooldown": {
+        "category": "rd_disc",
+        "duration": 0.8
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": true,
+        "launch_power_scale": 1.0,
+        "max_draw_duration": 0.5,
+        "min_draw_duration": 0.15,
+        "scale_power_by_draw_duration": true
+      },
+      "minecraft:projectile": {
+        "projectile_entity": "rd:ricochet_disc"
+      }
+    }
+  }
+}
