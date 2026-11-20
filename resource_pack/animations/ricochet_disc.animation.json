@@ -1,0 +1,17 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.rd_ricochet_disc.spin": {
+      "loop": true,
+      "animation_length": 0.4,
+      "bones": {
+        "body": {
+          "rotation": {
+            "0.0": [0, 0, 0],
+            "0.4": [0, 360, 0]
+          }
+        }
+      }
+    }
+  }
+}

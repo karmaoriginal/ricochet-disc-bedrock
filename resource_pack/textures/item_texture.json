@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "disco_rebote",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "rd:ricochet_disc": {
+      "textures": "textures/items/ricochet_disc"
+    }
+  }
+}

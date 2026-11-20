@@ -1,0 +1,5 @@
+item.rd:ricochet_disc=Disco de rebote
+item.rd:ricochet_disc.name=Disco de rebote
+entity.rd:ricochet_disc.name=Disco de rebote
+pack.name=Disco Rebote BP
+pack.description=Disco lanzable con rebotes. Script API estable 1.26.62.

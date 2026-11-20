@@ -1,0 +1,45 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Disco Rebote BP",
+    "description": "Disco lanzable con rebotes, encants simulados y PvP. Script API estable 1.26.62.",
+    "uuid": "30ddce1a-3dc8-4093-a047-c988513dc958",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 0]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "dfa9a6b4-6ce2-4aab-8851-f5e7e900d5d5",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "8ad4682e-b722-4db8-ac7a-bb1f3d9acd98",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "fa4a8a33-10c6-4f1a-b32c-2e602ba23821",
+      "version": [1, 0, 0]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": ["karmaoriginal"],
+    "license": "MIT",
+    "generated_with": {
+      "ricochet_disc": [1, 0, 0]
+    }
+  }
+}

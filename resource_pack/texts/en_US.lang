@@ -1,0 +1,5 @@
+item.rd:ricochet_disc=Ricochet Disc
+item.rd:ricochet_disc.name=Ricochet Disc
+entity.rd:ricochet_disc.name=Ricochet Disc
+pack.name=Ricochet Disc RP
+pack.description=16x16 textures and a simple disc model.

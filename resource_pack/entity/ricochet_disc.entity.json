@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "rd:ricochet_disc",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/ricochet_disc"
+      },
+      "geometry": {
+        "default": "geometry.rd_ricochet_disc"
+      },
+      "animations": {
+        "spin": "animation.rd_ricochet_disc.spin"
+      },
+      "scripts": {
+        "animate": ["spin"]
+      },
+      "render_controllers": ["controller.render.rd_ricochet_disc"],
+      "spawn_egg": {
+        "base_color": "#c8a028",
+        "overlay_color": "#3c4650"
+      }
+    }
+  }
+}

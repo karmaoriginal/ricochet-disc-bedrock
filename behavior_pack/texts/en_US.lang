@@ -1,0 +1,5 @@
+item.rd:ricochet_disc=Ricochet Disc
+item.rd:ricochet_disc.name=Ricochet Disc
+entity.rd:ricochet_disc.name=Ricochet Disc
+pack.name=Ricochet Disc BP
+pack.description=Throwable ricochet disc. Stable Script API 1.26.62.
